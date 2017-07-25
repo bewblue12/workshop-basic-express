@@ -9,12 +9,13 @@ app.use(bodyParser.urlencoded({ extended: true }))
 app.use(cookieParser())
 
 app.use(function (err, req, res, next) {
-  console.error(err.stack)
+  console.error(err)
   res.status(500).send('Something broke!')
 })
 
+app.set('view engine', 'pug')
 app.get('/', function (req, res) {
-  res.send('Hello World!')
+  res.render('index', { title: 'Hey', message: 'Hello there!' })
 })
 
 app.listen(3000, function () {
