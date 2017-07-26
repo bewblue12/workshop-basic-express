@@ -5,11 +5,12 @@ const requestTime = function (req, res, next) {
 
 app.get('/', function (req, res) {
   var responseText = 'Hello World!<br>'
-  responseText += '<small>Requested at: ' + req.requestTime + '</small>'
+  responseText += 'This page Requested at: <small>' + req.requestTime + '</small>'
   res.send(responseText)
 })
 
-=========================================
+==============app-middleware===========================
+
 
 app.use('/user/:id', function (req, res, next) {
   console.log('Request URL:', req.originalUrl)
@@ -32,7 +33,7 @@ app.get('/user/:id', function (req, res, next) {
   res.send('User special')
 })
 
-===========================================
+==============router-midleware=============================
 
 var router = express.Router()
 
@@ -63,7 +64,7 @@ router.get('/user/:id', function (req, res, next) {
 
 app.use('/', router)
 
-===================================================
+======================call-next-router=============================
 
 router.use(function (req, res, next) {
   if (!req.headers['x-auth']) return next('router')
@@ -71,11 +72,11 @@ router.use(function (req, res, next) {
 })
 
 router.get('/', function (req, res) {
-  res.send('hello, user!')
+  res.send('hello, admin!')
 })
 
 router.get('/company/:name', function (req, res) {
-  res.send(`hello, ${req.params.name} user!`)
+  res.send(`hello, ${req.params.name} admin!`)
 })
 
 app.use('/admin', router, function (req, res) {
